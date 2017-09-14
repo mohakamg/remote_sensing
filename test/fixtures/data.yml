@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization: one
+  sensor: one
+  organiz_id: MyString
+  sens_id: MyString
+  value: MyString
+  unit: MyString
+
+two:
+  organization: two
+  sensor: two
+  organiz_id: MyString
+  sens_id: MyString
+  value: MyString
+  unit: MyString

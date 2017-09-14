@@ -14,6 +14,16 @@
   <strong>Sens name:</strong>
   <%= @sensor.sens_name %>
 </p>
+<br>
+<div>
+  <p>Sensor Data: </p><hr>
+  <% @sensor.data.each do |d| %>
+    <p>Data Added: <%= time_ago_in_words(d.created_at) %> Ago, <%= link_to 'Destroy this entry', d, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+    <p>Value: <%= d.value %></p>
+    <p>Unit: <%= d.unit %></p>
+    <hr>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_sensor_path(@sensor) %> |
 <%= link_to 'Back', sensors_path %>
