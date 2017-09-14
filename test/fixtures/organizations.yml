@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  org_id: MyString
+  name: MyString
+  phone: MyString
+  org_type: MyString
+
+two:
+  org_id: MyString
+  name: MyString
+  phone: MyString
+  org_type: MyString

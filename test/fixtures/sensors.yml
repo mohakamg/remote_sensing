@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sens_id: 
+  organization: one
+  sens_name: MyString
+
+two:
+  sens_id: 
+  organization: two
+  sens_name: MyString
