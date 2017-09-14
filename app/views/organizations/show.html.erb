@@ -20,5 +20,12 @@
   <%= @organization.org_type %>
 </p>
 
+<p>
+  <strong>Organization Sensors:</strong>
+  <% @organization.sensors.each do |s| %>
+    <p><%= s.sens_name %>, <%= s.sens_id %>, <%= link_to "View Sensor Details", s %></p>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_organization_path(@organization) %> |
 <%= link_to 'Back', organizations_path %>

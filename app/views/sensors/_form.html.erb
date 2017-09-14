@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :sens_id %>
+    <%= form.label :Sensor_ID %>
     <%= form.text_field :sens_id, id: :sensor_sens_id %>
   </div>
 
   <div class="field">
     <%= form.label :organization_id %>
-    <%= form.text_field :organization_id, id: :sensor_organization_id %>
+    <%= form.collection_select :organization_id, Organization.all, :id, :name %>
   </div>
 
   <div class="field">
-    <%= form.label :sens_name %>
+    <%= form.label :Sensor_Name %>
     <%= form.text_field :sens_name, id: :sensor_sens_name %>
   </div>
 
