@@ -83,3 +83,4 @@ production:
   database: romoteSens_production
   username: romoteSens
   password: <%= ENV['ROMOTESENS_DATABASE_PASSWORD'] %>
+  url: "postgres://qmvfgrjkedbtks:46648d572876f299c99ee21c93a5c33f0935d672d34c1d6d362c3306169142c3@ec2-54-221-210-92.compute-1.amazonaws.com:5432/dbat56n80r57mt"
