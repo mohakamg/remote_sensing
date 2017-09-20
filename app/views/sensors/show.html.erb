@@ -34,7 +34,7 @@
   <tbody>
     <% @sensor.data.each do |d| %>
       <tr>
-        <td><%= time_ago_in_words(d.created_at) %> Ago, <%= link_to 'Destroy this entry', d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= d.created_at %> Ago, <%= link_to 'Destroy this entry', d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td>Value: <%= d.value %></td>
         <td>Unit: <%= d.unit %><td>
       </tr>
