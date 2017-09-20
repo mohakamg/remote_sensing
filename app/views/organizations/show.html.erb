@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Org:</strong>
+  <strong>Organization ID:</strong>
   <%= @organization.org_id %>
 </p>
 
@@ -16,16 +16,29 @@
 </p>
 
 <p>
-  <strong>Org type:</strong>
+  <strong>Organization Type:</strong>
   <%= @organization.org_type %>
-</p>
+</p><br><br>
 
-<p>
-  <strong>Organization Sensors:</strong>
-  <% @organization.sensors.each do |s| %>
-    <p><%= s.sens_name %>, <%= s.sens_id %>, <%= link_to "View Sensor Details", s %></p>
-  <% end %>
-</p>
+<strong>Organization Sensors:</strong>
+<table>
+  <thead>
+    <tr>
+      <th>Sensor Name</th>
+      <th>Sensor ID</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organization.sensors.each do |s| %>
+      <tr>
+        <td><%= s.sens_name %></td>
+        <td><%= s.sens_id %>, <%= link_to "View Sensor Details", s %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
 <%= link_to 'Edit', edit_organization_path(@organization) %> |
 <%= link_to 'Back', organizations_path %>

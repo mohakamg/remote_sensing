@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Sens</th>
+      <th>Sensor Id</th>
       <th>Organization</th>
       <th>Sens name</th>
       <th colspan="3"></th>
@@ -13,10 +13,10 @@
   </thead>
 
   <tbody>
-    <% @sensors.each do |sensor| %>
+    <% current_user.organization.sensors.each do |sensor| %>
       <tr>
         <td><%= sensor.sens_id %></td>
-        <td><%= sensor.organization %></td>
+        <td><%= sensor.organization.name %></td>
         <td><%= sensor.sens_name %></td>
         <td><%= link_to 'Show', sensor %></td>
         <td><%= link_to 'Edit', edit_sensor_path(sensor) %></td>
