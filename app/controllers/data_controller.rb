@@ -66,6 +66,7 @@ class DataController < ApplicationController
   sensor_id = params[:sensor_id]
   value = params[:value]
   unit = params[:unit]
+  date = params[:datetime].to_datetime
   #byebug
   organization = Organization.where(org_id:organization_id)
   if organization.count>0
@@ -74,6 +75,7 @@ class DataController < ApplicationController
       d = Datum.new(organiz_id: organization_id, sens_id: sensor_id, value: value, unit: unit)
       d.organization = organization[0]
       d.sensor = sensor[0]
+      d.date_upload = date
       if d.save
         respond_to do |format|
             format.html {redirect_to sensor[0]}
@@ -99,6 +101,44 @@ class DataController < ApplicationController
     end
   end
 
+  def sort_data_date
+    #byebug
+    @sensor = Sensor.find(params[:sens_id])
+    @start_date = params[:data][:start_time]
+    @end_date = params[:data][:end_time]
+    @data = @sensor.data.where('date_upload > ? AND date_upload < ?', @start_date, @end_date )
+    params.permit!
+    respond_to do |format|
+      format.html
+      format.csv { send_data @data.to_csv }
+      format.xls { send_data @data.to_csv(col_sep: "\t") }
+      format.pdf do
+         pdf = Prawn::Document.new(top_margin: 70)
+         pdf.text "Sensor ID: #{@sensor.sens_id}", size: 30, style: :bold
+         pdf.move_down 10
+         pdf.text "Organization: #{@sensor.organization.name}", size: 30, style: :bold
+         pdf.move_down 10
+         pdf.text "Organization: #{@sensor.organization.org_id}", size: 30, style: :bold
+         pdf.move_down 10
+         pdf.text "Organization: #{@sensor.sens_name}", size: 30, style: :bold
+
+         send_data(pdf.render, options={filename: Organization.find(@sensor.organization_id).org_id + " " + @sensor.sens_id + '.pdf', type: 'application/pdf'})
+      end
+    end
+  end
+
+  def line_items
+    pdf.move_down 20
+    pdf.table generate_pdf_table
+  end
+
+  def generate_pdf_table
+    [['Organization ID',	'Sensor ID',	'Value',	'Unit',	'Date of Upload']] +
+    @data.line_items.map do |item|
+      [item.organiz_id, item.sens_id, item.value, item.unit, item.date_upload]
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_datum
@@ -107,6 +147,6 @@ class DataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def datum_params
-      params.require(:datum).permit(:organization_id, :sensor_id, :organiz_id, :sens_id, :value, :unit)
+      params.require(:datum).permit(:organization_id, :sensor_id, :organiz_id, :sens_id, :value, :unit, :start_time, :end_time)
     end
 end

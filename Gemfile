@@ -36,6 +36,10 @@ gem 'jbuilder', '~> 2.5'
 # Deveise For User Authentication
 gem 'devise', '~> 4.3'
 
+# PDF file
+gem 'prawn'
+
+
 gem 'activeadmin', github: 'activeadmin'
 
 group :development, :test do
