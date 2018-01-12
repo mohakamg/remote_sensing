@@ -62,43 +62,43 @@ class DataController < ApplicationController
   end
 
   def updateData
-  organization_id = params[:organization_id]
-  sensor_id = params[:sensor_id]
-  value = params[:value]
-  unit = params[:unit]
-  date = params[:datetime].to_datetime
-  #byebug
-  organization = Organization.where(org_id:organization_id)
-  if organization.count>0
-    sensor = organization[0].sensors.where(sens_id: sensor_id)
-    if sensor.count>0
-      d = Datum.new(organiz_id: organization_id, sens_id: sensor_id, value: value, unit: unit)
-      d.organization = organization[0]
-      d.sensor = sensor[0]
-      d.date_upload = date
-      if d.save
-        respond_to do |format|
-            format.html {redirect_to sensor[0]}
-            format.json {render json: {'Update Succeeded': 'true'}}
+    organization_id = params[:organization_id]
+    sensor_id = params[:sensor_id]
+    value = params[:value]
+    unit = params[:unit]
+    date = params[:datetime].to_datetime
+    #byebug
+    organization = Organization.where(org_id:organization_id)
+    if organization.count>0
+      sensor = organization[0].sensors.where(sens_id: sensor_id)
+      if sensor.count>0
+        d = Datum.new(organiz_id: organization_id, sens_id: sensor_id, value: value, unit: unit)
+        d.organization = organization[0]
+        d.sensor = sensor[0]
+        d.date_upload = date
+        if d.save
+          respond_to do |format|
+              format.html {redirect_to sensor[0]}
+              format.json {render json: {'Update Succeeded': 'true'}}
+          end
+        else
+          respond_to do |format|
+              format.html {render html: 'Update Failed'}
+              format.json {render json: {'Update Succeeded': 'false'}}
+          end
         end
       else
         respond_to do |format|
-            format.html {render html: 'Update Failed'}
-            format.json {render json: {'Update Succeeded': 'false'}}
+            format.html {render html: 'No such sensor exists for the given organization'}
+            format.json {render json: {'Sensor Exists': 'False', 'Update Succeeded': 'False'}}
         end
       end
-    else
-      respond_to do |format|
-          format.html {render html: 'No such sensor exists for the given organization'}
-          format.json {render json: {'Sensor Exists': 'False', 'Update Succeeded': 'False'}}
+      else
+        respond_to do |format|
+            format.html {render html: 'No such Organization Exists'}
+            format.json {render json: {'Organization Exists': 'False', 'Update Succeeded': 'False'}}
+        end
       end
-    end
-    else
-      respond_to do |format|
-          format.html {render html: 'No such Organization Exists'}
-          format.json {render json: {'Organization Exists': 'False', 'Update Succeeded': 'False'}}
-      end
-    end
   end
 
   def sort_data_date
