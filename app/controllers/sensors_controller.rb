@@ -24,7 +24,7 @@ class SensorsController < ApplicationController
          pdf.text "Sensor ID: #{sensor.sens_id}", size: 30, style: :bold
          pdf.move_down 10
          pdf.text "Organization: #{sensor.organization.name}", size: 30, style: :bold
-         pdf.move_down 10
+         pdf. move_down 10
          pdf.text "Organization: #{sensor.organization.org_id}", size: 30, style: :bold
          pdf.move_down 10
          pdf.text "Organization: #{sensor.sens_name}", size: 30, style: :bold
